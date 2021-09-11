@@ -18,34 +18,37 @@ var numbers = [];
 //Contains random special characters from special Char' array 
 var special = [];
 
+
 // Function that begins generating the password
 var generatePassword = function () {
   //Asks for length of password
   passLength = prompt('Please enter number for password length.')
   //If character length is within range then continue to next criteria 
   if (passLength >= 8 && passLength <= 128) {
-    var response = confirm('Would you like to have uppercase in your password?')
-    if (response === true) {
-      //Number given represents the amount of elements in the password
-      for (var i = 0; i < passLength; i++) {
-        //Randomly selects a letter from 'letters' and adds them to the 'randomLetters' array
-        var x = Math.floor(Math.random() * letters.length);
-        var y = letters[x];
-        randomLetters.push(y);
-      }
-      validate++;
-      console.log(randomLetters);
-      passLower();
-
-    } else {
-      passLower();
-    }
-
+    return passUpper();
   } else {
     //If character length is outside range (12-128 characters) then alert should display telling user to try again
     alert('Please select a number between 18 and 128 for password length.')
     return generatePassword();
   }
+}
+
+var passUpper = function () {
+  var response = confirm('Would you like to have uppercase in your password?')
+  if (response === true) {
+    //Number given represents the amount of elements in the password
+    for (var i = 0; i < passLength; i++) {
+      //Randomly selects a letter from 'letters' and adds them to the 'randomLetters' array
+      /*var x = Math.floor(Math.random() * letters.length);
+      var y = letters[x];
+      randomLetters.push(y);*/
+      selectRandomChar(letters, randomLetters);
+    }
+    validate++;
+    console.log(randomLetters);
+  }
+  return passLower();
+
 }
 
 //Turns random letters to lower case
@@ -61,7 +64,7 @@ var passLower = function () {
     }
     validate++;
     console.log(lettersLowercase);
-    passNumeric();
+    return passNumeric();
 
   }
   else {
@@ -83,7 +86,7 @@ var passNumeric = function () {
     }
     validate++;
     console.log(numbers);
-    passSpecial();
+    return passSpecial();
 
   }
   else {
@@ -97,26 +100,40 @@ var passSpecial = function () {
   //If response is 'Yes'(True) then password should have uppercase(.toUpperCase();) characters in it */
   if (response === false) {
     if (validate === 0) {
-      alert('Please select at leats 1 criteria.')
-      generatePassword();
+      alert('Please select at least 1 of options.')
+      passUpper();
     }
-    else {
-      //Will loop a arbitrary amount of times
-      for (var i = 0; i < passLength; i++) {
-        var x = Math.floor(Math.random() * specialChar.length);
-        var y = specialChar[x];
-        special.push(y);
-      }
-      console.log(special);
-      //passWord()
+  } else {
+    //Will loop a arbitrary amount of times
+    for (var i = 0; i < passLength; i++) {
+      var x = Math.floor(Math.random() * specialChar.length);
+      var y = specialChar[x];
+      special.push(y);
     }
+    console.log(special);
+    return passWord();
+
   }
 }
 
-//If user responds "no" for all conditional statements alert should display saying they need to select 'Yes' for at least 1 and try again(call back inner function)
-//Need to call original funcion back if 'validate' = 0 (no criteria was selected)
-/*passWord() fucnnction should combine all the arrays and loop through 1 large array 'passLength' amount of times and index/select a 
-random number between 0 and length of large array(largeArray.length). During each iteration a value should be appended to the final destination until 'passLength' value*/
+var passWord = function () {
+  passWordArray = [];
+  var passWordFinal = passWordArray.concat(randomLetters, lettersLowercase, numbers, special);
+  var Final = [];
+  for (i = 0; i < passLength; i++) {
+    var x = Math.floor(Math.random() * passWordFinal.length);
+    var y = passWordFinal[x];
+    Final.push(y);
+  }
+  console.log(Final.join(""));
+  return Final.join("");
+}
+
+var selectRandomChar = function(array, arrayPush) {
+  var x = Math.floor(Math.random() * array.length);
+  var y = array[x];
+  arrayPush.push(y);
+}
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
