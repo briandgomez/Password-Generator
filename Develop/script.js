@@ -1,21 +1,24 @@
-//Array that holds alphabet
+//Array that holds the alphabet
 var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-//Array that holds 16 different characters
+//Array that holds the alphabet in lowercase
+var lettersLower = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+//Array that holds 11 different characters
 var numericChar = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 //Array that holds 20 different characters
 var specialChar = ['!', '[', ']', '{', '}', '/', '-', '_', '+', '=', '?', '~', '%', '$', '#', '@', '^', '&', '*'];
 
-//Keep track to make sure user selects at least 1 criteria
+//Keep track to make sure user selects at least 1 of the following criteria
 var validate = 0;
 
+//Creates variable for length of the password 
 var passLength;
 //Contains random letters from 'letters' array
 var randomLetters = [];
-//Contains random letters 'letters' array and turn to lowercase 
+//Contains random letters from 'letters' array and turn to lowercase 
 var lettersLowercase = [];
 //Contains random numbers from 'numericChar' array 
 var numbers = [];
-//Contains random special characters from special Char' array 
+//Contains random special characters from 'special Char' array 
 var special = [];
 
 
@@ -27,109 +30,78 @@ var generatePassword = function () {
   if (passLength >= 8 && passLength <= 128) {
     return passUpper();
   } else {
-    //If character length is outside range (12-128 characters) then alert should display telling user to try again
-    alert('Please select a number between 18 and 128 for password length.')
+    //If character length is outside range (12-128 characters) then alert should display 
+    alert('Please select a number between 8 and 128 for password length.')
     return generatePassword();
   }
 }
 
+//Returns uppercase letters
 var passUpper = function () {
   var response = confirm('Would you like to have uppercase in your password?')
   if (response === true) {
-    //Number given represents the amount of elements in the password
+    //Number given for 'passLength' represents the amount of elements in the password
     for (var i = 0; i < passLength; i++) {
-      //Randomly selects a letter from 'letters' and adds them to the 'randomLetters' array
-      /*var x = Math.floor(Math.random() * letters.length);
-      var y = letters[x];
-      randomLetters.push(y);*/
       selectRandomChar(letters, randomLetters);
     }
     validate++;
-    console.log(randomLetters);
   }
   return passLower();
-
 }
 
-//Turns random letters to lower case
+//Returns lowercase letters
 var passLower = function () {
   var response = confirm('Would you like to have lowercase in your password?')
-  //If user responds true then password should have lowercase characters
   if (response === true) {
-    //Will loop a arbitrary amount of times
     for (var i = 0; i < passLength; i++) {
-      var x = Math.floor(Math.random() * specialChar.length);
-      var y = letters[x].toLowerCase();
-      lettersLowercase.push(y);
+      selectRandomChar(lettersLower, lettersLowercase);
     }
     validate++;
-    console.log(lettersLowercase);
-    return passNumeric();
-
   }
-  else {
-    //If response is "No' then continue on to next criteria 
-    passNumeric();
-  }
+  return passNumeric();
 }
 
-//Adds numbers to the password
+//Returns random numbers
 var passNumeric = function () {
   var response = confirm('Would you like to have numbers in your password?')
-  //If response is 'Yes'(True) then password should have uppercase(.toUpperCase();) characters in it */
   if (response === true) {
-    //Will loop a arbitrary amount of times
     for (var i = 0; i < passLength; i++) {
-      var x = Math.floor(Math.random() * numericChar.length);
-      var y = numericChar[x];
-      numbers.push(y);
+      selectRandomChar(numericChar, numbers);
     }
     validate++;
-    console.log(numbers);
-    return passSpecial();
-
   }
-  else {
-    //If response is "No"(False) then continue on to next criteria 
-    passSpecial();
-  }
+  return passSpecial();
 }
 
+//Returns special characters
 var passSpecial = function () {
   var response = confirm('Would you like to have special characters in your password?')
-  //If response is 'Yes'(True) then password should have uppercase(.toUpperCase();) characters in it */
   if (response === false) {
     if (validate === 0) {
       alert('Please select at least 1 of options.')
       passUpper();
     }
   } else {
-    //Will loop a arbitrary amount of times
     for (var i = 0; i < passLength; i++) {
-      var x = Math.floor(Math.random() * specialChar.length);
-      var y = specialChar[x];
-      special.push(y);
+      selectRandomChar(specialChar, special);
     }
-    console.log(special);
-    return passWord();
-
   }
+  return passWord();
 }
 
+//Creates password
 var passWord = function () {
   passWordArray = [];
   var passWordFinal = passWordArray.concat(randomLetters, lettersLowercase, numbers, special);
   var Final = [];
   for (i = 0; i < passLength; i++) {
-    var x = Math.floor(Math.random() * passWordFinal.length);
-    var y = passWordFinal[x];
-    Final.push(y);
+    selectRandomChar(passWordFinal, Final);
   }
-  console.log(Final.join(""));
   return Final.join("");
 }
 
-var selectRandomChar = function(array, arrayPush) {
+//Function that extracts random elements from exisitng arrays and adds them to empty arrays
+var selectRandomChar = function (array, arrayPush) {
   var x = Math.floor(Math.random() * array.length);
   var y = array[x];
   arrayPush.push(y);
