@@ -7,4 +7,4 @@ A password generator is used to create random passwords for users.The user can d
 ![image](https://user-images.githubusercontent.com/69539559/132961389-1bea0825-4a38-47cb-854d-8e4639922b3e.png)
 
 # Website
-https://briandgomez.github.io/C2-Professional-Portfolio/
+https://briandgomez.github.io/C3-Password-Generator/
