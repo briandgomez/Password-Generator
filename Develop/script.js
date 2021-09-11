@@ -3,7 +3,7 @@ var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 
 //Array that holds the alphabet in lowercase
 var lettersLower = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 //Array that holds 11 different characters
-var numericChar = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+var numericChar = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 //Array that holds 20 different characters
 var specialChar = ['!', '[', ']', '{', '}', '/', '-', '_', '+', '=', '?', '~', '%', '$', '#', '@', '^', '&', '*'];
 
